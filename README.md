@@ -44,7 +44,7 @@ wget https://raw.githubusercontent.com/quenorha/opcua_tig/main/install.sh -P /me
  
 ###  1) Certificats TLS
 
-Si besoin, modifier le fichier <b>/root/config/ssl.conf</b> pour renseigner les informations du certificats au niveau de [ subject ].
+Si besoin, modifier le fichier <b>/root/config/ssl.conf</b> pour renseigner les informations du certificats au niveau de [subject].
 Il faut regénérer les clés et certificats via la commande suivante : 
 ```
 openssl req -x509 -days 365 -new -out /root/certs/certificate.pem -key /root/certs/key.pem -config /root/config/ssl.conf
@@ -70,7 +70,7 @@ Consulter les logs pour vérifier le bon fonctionnement (également possible dep
 docker logs c_telegraf
 ```		 
 
-La première connexion peut prendre plus de temps en raison de l'échange TLS, il est donc normal que ce messages d'erreur apparaîssent dans le logs du container Telegraf : 
+La première connexion peut prendre plus de temps en raison de l'échange TLS, il est donc normal que ce message d'erreur apparaîssent dans le logs du container Telegraf : 
 ```
  W! [inputs.opcua] Collection took longer than expected; not complete after interval of 1s
 ```
@@ -78,5 +78,5 @@ Si en revanche ce message se répète il y a peut être un problème dans la con
 Pour vérifier si le certificat a été rejeté et éventuellement l'autoriser, il faut utiliser le mécanisme GDS Push. Se connecter avec le client UAExpert (en mode sécurisé). 
 Aller dans <em>Document / Add</em>, sélectionner GDS Push View puis cliquer sur Add. 
 
-Au niveau de <em>Server Certificate Groups</em>, le certificat généré précédemment doit apparaître, accompagné d'un croix rouge. Cliquer droit dessus puis sur <em>Trust</em>.
+Au niveau de <em>Server Certificate Groups</em>, le certificat généré précédemment doit apparaître, accompagné d'une croix rouge. Cliquer droit dessus puis sur <em>Trust</em>.
 La communication OPC UA devrait fonctionner. 
