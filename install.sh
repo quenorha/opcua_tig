@@ -12,7 +12,7 @@ if [ $? -eq 0 ]; then
 	mkdir /root/certs
 	wget https://raw.githubusercontent.com/quenorha/opcua_tig/main/conf/telegraf.conf -P /root/config/
 	wget https://raw.githubusercontent.com/quenorha/opcua_tig/main/conf/daemon.json -P /root/config/
-
+	wget https://raw.githubusercontent.com/quenorha/opcua_tig/main/conf/ssl.conf -P /root/config/
 	echo "Installation Docker"
 	opkg install -V3 /tmp/docker_20.10.5_armhf.ipk
 	
