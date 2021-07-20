@@ -50,7 +50,13 @@ Il faut regénérer les clés et certificats via la commande suivante :
 openssl req -x509 -days 365 -new -out /root/certs/certificate.pem -key /root/certs/key.pem -config /root/config/ssl.conf
 ```
 
-### 2) Telegraf
+### 2) Serveur OPC UA
+Se référer au <a href="https://www.wago.com/wagoweb/documentation/common/eng_info/OPC-UA/txxxxxxxx__OPCUA_Server__0en.pdf">manuel</a> du serveur OPC UA WAGO.
+
+Par défaut le serveur OPC UA WAGO est activé. Dans e!COCKPIT, il suffit de créer des variables, d'ajouter une configuration de symbole dans l'application et choisir les variables à partager.
+
+
+### 3) Telegraf
 Le fichier <b>/root/config/telegraf.conf</b> (dans le dossier /root/config) doit être adapté pour renseigner l'adresse IP du serveur OPC UA, ainsi que les variables à lire. 
 Pour obtenir l'identifiant de la variable OPC UA, se connecter avec le client UAExpert au contrôleur, puis cocher la vue <em>View / Attributes</em>.
 Naviguer jusqu'aux variables, l'identifiant apparaît à droite au niveau de <em>Identifier</em>, copier la valeur.
@@ -80,3 +86,14 @@ Aller dans <em>Document / Add</em>, sélectionner GDS Push View puis cliquer sur
 
 Au niveau de <em>Server Certificate Groups</em>, le certificat généré précédemment doit apparaître, accompagné d'une croix rouge. Cliquer droit dessus puis sur <em>Trust</em>.
 La communication OPC UA devrait fonctionner. 
+
+### 4) Grafana
+
+Se connecter à la page http://[adresseIPduContrôleur]:3000.  \
+S'authentifier via admin / admin. \
+Le mot de passe doit être modifié à la première connexion.  \
+Aller dans <em>Configuration / Data sources</em> puis cliquer sur <em>Add data source</em>. \
+Sélectionner InfluxDB. \
+Au niveau de l'URL, renseigner http://c_influxdb:8086 \
+Au niveau de <em>Database</em>, renseigner telegraf. Cette base est créée automatiquement par Telegraf. \
+Cliquer sur <em>Save And Test</em>, <em>Data source is working</em> doit s'afficher en vert. 
