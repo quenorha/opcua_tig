@@ -44,8 +44,8 @@ wget https://raw.githubusercontent.com/quenorha/opcua_tig/main/install.sh -P /me
  
 ###  1) Certificats TLS
 
-Si besoin, modifier le fichier <b>/root/config/ssl.conf</b> pour renseigner les informations du certificats au niveau de [subject].
-Il faut regénérer les clés et certificats via la commande suivante : 
+Lors de l'exécution du script, les informations du certificat sont à renseigner. /
+Pour les modifier a posteriori,il faut regénérer les clés et certificats via la commande suivante : 
 ```
 openssl req -x509 -days 365 -new -out /root/certs/certificate.pem -key /root/certs/key.pem -config /root/config/ssl.conf
 ```
