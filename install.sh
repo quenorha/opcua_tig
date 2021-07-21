@@ -68,7 +68,7 @@ if [ $? -eq 0 ]; then
 
 
 	echo "Démarrage Telegraf"
-	docker run --restart=unless-stopped --name=c_telegraf -v /root/certs/:/etc/telegraf/certs/ -v /root/config/telegraf.conf:/etc/telegraf/telegraf.conf:ro telegraf:1.19.1
+	docker run --restart=unless-stopped --net=wago --name=c_telegraf -v /root/certs/:/etc/telegraf/certs/ -v /root/config/telegraf.conf:/etc/telegraf/telegraf.conf:ro telegraf:1.19.1
 
 	
 else
