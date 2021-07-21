@@ -28,7 +28,7 @@ Une carte SD (/media/sd) doit être insérée et préalablement formatée en ext
 
 Le PFC, Edge Controller ou TP600 doit disposer d'un accès à Internet (penser à renseigner DNS et Gateway).
 
-La date et heure du contrôleur doivent être mises à jour pour éviter des erreurs lors de l'échange TLS. 
+<strong>La date et heure du contrôleur doivent impérativement être mises à jour pour éviter des erreurs lors de l'échange TLS!</strong>
 Dans le WBM, mettre à jour l'heure dans <em>Configuration / Clock</em> ou spécifier un serveur de temps dans <em>Ports and service / NTP Client</em>
 
 ## Installation
@@ -53,7 +53,15 @@ openssl req -x509 -days 365 -new -out /root/certs/certificate.pem -key /root/cer
 ### 2) Serveur OPC UA
 Se référer au <a href="https://www.wago.com/wagoweb/documentation/common/eng_info/OPC-UA/txxxxxxxx__OPCUA_Server__0en.pdf">manuel</a> du serveur OPC UA WAGO.
 
-Par défaut le serveur OPC UA WAGO est activé. Dans e!COCKPIT, il suffit de créer des variables, d'ajouter une configuration de symbole dans l'application et choisir les variables à partager.
+Par défaut le serveur OPC UA WAGO est activé. Dans e!COCKPIT, il suffit de créer des variables, d'ajouter une configuration de symbole dans l'application et choisir les variables à partager. /
+Dans le WBM, la case Trust All clients doit être désactivée. 
+
+Un certificat doit être généré pour UAExpert dans un premier temps (se référer au manuel). /
+A la première connexion de Telegraf, le certificat généré par le script (via openssl) est rejeté. 
+Pour l'autoriser, il faut utiliser le mécanisme GDS Push. Se connecter avec le client UAExpert (en mode sécurisé). /
+Aller dans <em>Document / Add</em>, sélectionner GDS Push View puis cliquer sur Add. /
+Au niveau de <em>Server Certificate Groups</em>, le certificat généré précédemment doit apparaître, accompagné d'une croix rouge. Cliquer droit dessus puis sur <em>Trust</em>. /
+La communication OPC UA devrait fonctionner. 
 
 
 ### 3) Telegraf
@@ -80,12 +88,7 @@ La première connexion peut prendre plus de temps en raison de l'échange TLS, i
 ```
  W! [inputs.opcua] Collection took longer than expected; not complete after interval of 1s
 ```
-Si en revanche ce message se répète il y a peut être un problème dans la configuration du serveur, ou bien le certificat a été rejeté. 
-Pour vérifier si le certificat a été rejeté et éventuellement l'autoriser, il faut utiliser le mécanisme GDS Push. Se connecter avec le client UAExpert (en mode sécurisé). 
-Aller dans <em>Document / Add</em>, sélectionner GDS Push View puis cliquer sur Add. 
 
-Au niveau de <em>Server Certificate Groups</em>, le certificat généré précédemment doit apparaître, accompagné d'une croix rouge. Cliquer droit dessus puis sur <em>Trust</em>.
-La communication OPC UA devrait fonctionner. 
 
 ### 4) Grafana
 
