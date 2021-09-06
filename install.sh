@@ -42,7 +42,7 @@ if [ $? -eq 0 ]; then
 	docker pull grafana/grafana:8.0.0
 	
 	echo "Téléchargement image Telegraf"
-	docker pull telegraf:1.19.1
+	docker pull telegraf:1.19.3
 	
 	echo "Création network"
 	docker network create wago
